@@ -19,6 +19,9 @@ console.log('PORT:', process.env.PORT || 5000);
 // Initialize Express app
 const app = express();
 
+// Trust Render's proxy (required for rate limiting and IP detection)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet()); // Set security headers
 app.use(compression()); // Compress responses
