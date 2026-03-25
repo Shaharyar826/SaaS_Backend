@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Environment — NEVER commit real secrets
+.env
+.env.*
+!.env.example
+
+# User uploads — private data, use Cloudinary in production
+uploads/images/
+uploads/files/
+uploads/event-notices/
+uploads/aboutImage/
+uploads/temp/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Dev/test scripts — not needed in production repo
+create-admin-user.js
+create-test-tenant.js
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
