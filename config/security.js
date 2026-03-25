@@ -53,7 +53,8 @@ const createRateLimiter = (windowMs, max, message) => rateLimit({
   message: { success: false, message },
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => process.env.NODE_ENV === 'test'
+  skip: (req) => process.env.NODE_ENV === 'test',
+  validate: { xForwardedForHeader: false }
 });
 
 const createSlowDown = (windowMs, delayAfter, delayMs) => slowDown({
