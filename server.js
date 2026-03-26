@@ -42,6 +42,11 @@ const apiLimiter = rateLimit({
   }
 });
 
+// Health check — before rate limiter so UptimeRobot can always reach it
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, dbConnected: mongoose.connection.readyState === 1 });
+});
+
 // Apply rate limiting to all API routes
 app.use('/api', apiLimiter);
 

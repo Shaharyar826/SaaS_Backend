@@ -1,22 +1,23 @@
 const nodemailer = require('nodemailer');
 
 class EmailService {
-  constructor() {
-    this.isConfigured = !!(process.env.SMTP_USER && process.env.SMTP_PASS);
-    
-    if (this.isConfigured) {
-      this.transporter = nodemailer.createTransport({
+  get isConfigured() {
+    return !!(process.env.SMTP_USER && process.env.SMTP_PASS);
+  }
+
+  get transporter() {
+    if (!this._transporter) {
+      this._transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: process.env.SMTP_PORT || 587,
+        port: parseInt(process.env.SMTP_PORT) || 587,
         secure: false,
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS
         }
       });
-    } else {
-      console.warn('Email service not configured - SMTP credentials missing');
     }
+    return this._transporter;
   }
 
   async sendWelcomeEmail(email, data) {
